@@ -61,6 +61,9 @@ kotlin {
                 implementation(serialization)
                 api(logging)
             }
+            api(libs.precompose)
+            api(libs.precompose.viewmodel)
+            api(libs.precompose.koin)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
