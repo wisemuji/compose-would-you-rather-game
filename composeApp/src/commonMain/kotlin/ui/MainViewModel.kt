@@ -23,6 +23,25 @@ sealed interface GameUiState {
     data class GameOver(
         val lesson: String,
     ) : GameUiState
+
+    companion object {
+        fun fromTurnResult(turnResult: TurnResult): GameUiState {
+            return when (turnResult) {
+                is TurnResult.SelectableOptions -> {
+                    SelectableOptions(
+                        remainingTurns = turnResult.remainingTurns,
+                        question = turnResult.question,
+                        optionA = turnResult.optionA,
+                        optionB = turnResult.optionB,
+                    )
+                }
+
+                is TurnResult.GameOver -> {
+                    GameOver(lesson = turnResult.lesson)
+                }
+            }
+        }
+    }
 }
 
 class MainViewModel(
@@ -35,44 +54,14 @@ class MainViewModel(
     fun startGame() {
         viewModelScope.launch {
             val turnResult = gameRepository.startGame()
-            turnResult.run {
-                when (this) {
-                    is TurnResult.SelectableOptions -> {
-                        _uiState.value = GameUiState.SelectableOptions(
-                            remainingTurns = remainingTurns,
-                            question = question,
-                            optionA = optionA,
-                            optionB = optionB,
-                        )
-                    }
-
-                    is TurnResult.GameOver -> {
-                        _uiState.value = GameUiState.GameOver(lesson)
-                    }
-                }
-            }
+            _uiState.value = GameUiState.fromTurnResult(turnResult)
         }
     }
 
     fun selectOption(option: Option) {
         viewModelScope.launch {
             val turnResult = gameRepository.selectOption(option)
-            turnResult.run {
-                when (this) {
-                    is TurnResult.SelectableOptions -> {
-                        _uiState.value = GameUiState.SelectableOptions(
-                            remainingTurns = remainingTurns,
-                            question = question,
-                            optionA = optionA,
-                            optionB = optionB,
-                        )
-                    }
-
-                    is TurnResult.GameOver -> {
-                        _uiState.value = GameUiState.GameOver(lesson)
-                    }
-                }
-            }
+            _uiState.value = GameUiState.fromTurnResult(turnResult)
         }
     }
 }
