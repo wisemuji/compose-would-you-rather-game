@@ -1,43 +1,66 @@
-package ui
+package com.wisemuji.wouldyourathergame
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalSharedTransitionApi
+import androidx.compose.animation.SharedTransitionLayout
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import model.Option
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.Preview
+import ui.GameUiState
+import ui.SelectableOptionsScreen
 
+//<palette>
+//<color name="Rose" hex="f72585" r="247" g="37" b="133" />
+//<color name="Grape" hex="7209b7" r="114" g="9" b="183" />
+//<color name="Zaffre" hex="3a0ca3" r="58" g="12" b="163" />
+//<color name="Neon blue" hex="4361ee" r="67" g="97" b="238" />
+//<color name="Vivid sky blue" hex="4cc9f0" r="76" g="201" b="240" />
+//</palette>
+
+
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview(showBackground = true)
 @Composable
-fun SelectableOptionsScreen(
-    uiState: GameUiState.SelectableOptions,
-    onOptionSelected: (Option) -> Unit,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier,
-    ) {
-        Text(text = uiState.question)
-        TextButton(onClick = { onOptionSelected(Option.A) }) {
-            Text(text = uiState.optionA)
-        }
-        TextButton(onClick = { onOptionSelected(Option.B) }) {
-            Text(text = uiState.optionB)
+fun SelectableOptionsScreenPreview(modifier: Modifier = Modifier) {
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            SelectableOptionsScreen(
+                uiState = GameUiState.SelectableOptions(
+                    question = "Okay, developers, here's a tough choice! Which one would you pick?",
+                    optionA = "\uD83D\uDC7B\n\nMake 1 billion won with an app I created",
+                    optionB = "Get praised by developers all over the world for my open source code\n\n\uD83D\uDC4E",
+                    remainingTurns = 3,
+                ),
+                onOptionSelected = {},
+                sharedTransitionScope = this@SharedTransitionLayout,
+                animatedVisibilityScope = this@AnimatedVisibility,
+                modifier = modifier
+                    .fillMaxSize(),
+            )
         }
     }
 }
 
-@Preview
+@OptIn(ExperimentalSharedTransitionApi::class)
+@Preview(showBackground = true)
 @Composable
-fun SelectableOptionsScreenPreview(modifier: Modifier = Modifier) {
-    SelectableOptionsScreen(
-        uiState = GameUiState.SelectableOptions(
-            question = "Question",
-            optionA = "Option A",
-            optionB = "Option B",
-            remainingTurns = 3,
-        ),
-        onOptionSelected = {},
-        modifier = modifier,
-    )
+fun SelectableOptionsScreenPreview_Korean(modifier: Modifier = Modifier) {
+    SharedTransitionLayout {
+        AnimatedVisibility(visible = true) {
+            SelectableOptionsScreen(
+                uiState = GameUiState.SelectableOptions(
+                    question = "자, 개발자라면 누구나 고민될 만한 선택지! 어떤 걸 선택할래?",
+                    optionA = "내가 만든 앱으로 10억 벌기",
+                    optionB = "내가 만든 오픈소스로 전 세계 개발자들에게 칭찬받기",
+                    remainingTurns = 3,
+                ),
+                onOptionSelected = {},
+                sharedTransitionScope = this@SharedTransitionLayout,
+                animatedVisibilityScope = this@AnimatedVisibility,
+                modifier = modifier
+                    .fillMaxSize(),
+            )
+        }
+    }
 }

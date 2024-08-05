@@ -1,4 +1,4 @@
-package ui
+package com.wisemuji.wouldyourathergame
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import compose_would_you_rather_game.composeapp.generated.resources.Res
 import compose_would_you_rather_game.composeapp.generated.resources.restart
 import org.jetbrains.compose.resources.stringResource
+import ui.GameUiState
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
