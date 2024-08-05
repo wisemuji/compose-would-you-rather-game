@@ -10,17 +10,18 @@ androidx-core-ktx = "1.13.1"
 androidx-espresso-core = "3.6.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
-compose-plugin = "1.6.11"
+compose-plugin = "1.7.0-alpha01"
 junit = "4.13.2"
 kotlin = "2.0.0"
 kotlinx-datetime = "0.6.0"
 koin = "3.6.0-alpha1"
 ktor = "2.3.11"
 coroutines = "1.8.1"
-precompose = "1.6.0"
+lifecycleViewmodel = "2.8.4"
 buildkonfig = "0.15.1"
 
 [libraries]
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -45,10 +46,6 @@ ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kto
 
 koin-android = {group = "io.insert-koin", name = "koin-android", version.ref="koin"}
 koin-compose = {group = "io.insert-koin", name = "koin-compose", version.ref="koin"}
-
-precompose-koin = { module = "moe.tlaster:precompose-koin", version.ref = "precompose" }
-precompose-viewmodel = { module = "moe.tlaster:precompose-viewmodel", version.ref = "precompose" }
-precompose = { module = "moe.tlaster:precompose", version.ref = "precompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

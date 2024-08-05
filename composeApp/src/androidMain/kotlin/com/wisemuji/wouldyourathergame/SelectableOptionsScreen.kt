@@ -6,6 +6,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import model.Option
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SelectableOptionsScreen(
@@ -24,4 +25,19 @@ fun SelectableOptionsScreen(
             Text(text = uiState.optionB)
         }
     }
+}
+
+@Preview
+@Composable
+fun SelectableOptionsScreenPreview(modifier: Modifier = Modifier) {
+    SelectableOptionsScreen(
+        uiState = GameUiState.SelectableOptions(
+            question = "Question",
+            optionA = "Option A",
+            optionB = "Option B",
+            remainingTurns = 3,
+        ),
+        onOptionSelected = {},
+        modifier = modifier,
+    )
 }

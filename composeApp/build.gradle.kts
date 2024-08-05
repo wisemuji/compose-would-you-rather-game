@@ -17,7 +17,7 @@ kotlin {
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
+            jvmTarget.set(JvmTarget.JVM_17)
         }
     }
     
@@ -44,6 +44,7 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(libs.androidx.lifecycle.viewmodel)
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -61,9 +62,6 @@ kotlin {
                 implementation(serialization)
                 api(logging)
             }
-            api(libs.precompose)
-            api(libs.precompose.viewmodel)
-            api(libs.precompose.koin)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -101,11 +99,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    buildFeatures {
-        compose = true
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     dependencies {
         debugImplementation(compose.uiTooling)
