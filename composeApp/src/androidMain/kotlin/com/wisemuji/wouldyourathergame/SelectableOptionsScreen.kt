@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ui.GameUiState
-import ui.SelectableOptionsScreen
+import ui.game.GameScreen
 
 //<palette>
 //<color name="Rose" hex="f72585" r="247" g="37" b="133" />
@@ -25,7 +25,7 @@ import ui.SelectableOptionsScreen
 fun SelectableOptionsScreenPreview(modifier: Modifier = Modifier) {
     SharedTransitionLayout {
         AnimatedVisibility(visible = true) {
-            SelectableOptionsScreen(
+            GameScreen(
                 uiState = GameUiState.SelectableOptions(
                     question = "Okay, developers, here's a tough choice! Which one would you pick?",
                     optionA = "\uD83D\uDC7B\n\nMake 1 billion won with an app I created",
@@ -48,7 +48,7 @@ fun SelectableOptionsScreenPreview(modifier: Modifier = Modifier) {
 fun SelectableOptionsScreenPreview_Korean(modifier: Modifier = Modifier) {
     SharedTransitionLayout {
         AnimatedVisibility(visible = true) {
-            SelectableOptionsScreen(
+            GameScreen(
                 uiState = GameUiState.SelectableOptions(
                     question = "자, 개발자라면 누구나 고민될 만한 선택지! 어떤 걸 선택할래?",
                     optionA = "내가 만든 앱으로 10억 벌기",

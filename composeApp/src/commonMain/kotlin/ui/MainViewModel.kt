@@ -8,8 +8,30 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import model.Option
 import model.TurnResult
-import ui.GameUiState.GameOver
+import ui.GameUiState.GameResult
 import ui.GameUiState.SelectableOptions
+
+sealed interface GameUiState {
+    // TODO: error handling
+    data object Loading : GameUiState
+
+    data class SelectableOptions(
+        val remainingTurns: Int,
+        val question: String,
+        val optionA: String,
+        val optionB: String,
+    ) : GameUiState
+
+    data class GameResult(
+        val selectedOption: SelectedOption,
+        val lesson: String,
+    ) : GameUiState {
+        data class SelectedOption(
+            val comment: String,
+            val option: Option,
+        )
+    }
+}
 
 class MainViewModel(
     private val gameRepository: GameRepository,
@@ -51,11 +73,11 @@ class MainViewModel(
 
                 is TurnResult.GameOver -> {
                     val uiState = uiState.value as SelectableOptions
-                    val selectedOption = GameOver.SelectedOption(
+                    val selectedOption = GameResult.SelectedOption(
                         option = option,
                         comment = if (option == Option.A) uiState.optionA else uiState.optionB,
                     )
-                    GameOver(
+                    GameResult(
                         selectedOption = selectedOption,
                         lesson = turnResult.lesson,
                     )

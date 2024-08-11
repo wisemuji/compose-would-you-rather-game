@@ -1,9 +1,7 @@
-package ui
+package ui.game
 
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.InfiniteTransition
 import androidx.compose.animation.core.LinearEasing
@@ -33,61 +31,12 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Medium
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import compose_would_you_rather_game.composeapp.generated.resources.Res
-import compose_would_you_rather_game.composeapp.generated.resources.loading
 import model.Option
-import org.jetbrains.compose.resources.stringResource
-
-@Composable
-private fun InfiniteTransition.animateBreathing() = animateFloat(
-    initialValue = 0.8f,
-    targetValue = 1f,
-    animationSpec = infiniteRepeatable(
-        animation = tween(
-            durationMillis = 600,
-            easing = LinearEasing
-        ),
-        repeatMode = RepeatMode.Reverse
-    )
-)
+import ui.GameUiState
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun GameScreen(
-    uiState: GameUiState,
-    onSelectOption: (Option) -> Unit,
-    onRestartClick: () -> Unit,
-) {
-    SharedTransitionLayout {
-        AnimatedContent(uiState) { targetState ->
-            when (targetState) {
-                is GameUiState.SelectableOptions -> {
-                    SelectableOptionsScreen(
-                        uiState = targetState,
-                        onOptionSelected = onSelectOption,
-                        animatedVisibilityScope = this@AnimatedContent,
-                        sharedTransitionScope = this@SharedTransitionLayout
-                    )
-                }
-
-                is GameUiState.GameOver -> {
-                    GameOverScreen(
-                        uiState = targetState,
-                        onRestartClick = onRestartClick,
-                        animatedVisibilityScope = this@AnimatedContent,
-                        sharedTransitionScope = this@SharedTransitionLayout
-                    )
-                }
-
-                GameUiState.Loading -> Text(stringResource(Res.string.loading))
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalSharedTransitionApi::class)
-@Composable
-fun SelectableOptionsScreen(
     uiState: GameUiState.SelectableOptions,
     onOptionSelected: (Option) -> Unit,
     sharedTransitionScope: SharedTransitionScope,
@@ -132,7 +81,7 @@ private fun QuestionBox(
     uiState: GameUiState.SelectableOptions,
     modifier: Modifier = Modifier,
 ) {
-    Column(
+    Box(
         modifier = modifier
             .graphicsLayer {
                 scaleX = value
@@ -214,5 +163,17 @@ private fun OptionButton(
             )
         }
     }
-
 }
+
+@Composable
+private fun InfiniteTransition.animateBreathing() = animateFloat(
+    initialValue = 0.8f,
+    targetValue = 1f,
+    animationSpec = infiniteRepeatable(
+        animation = tween(
+            durationMillis = 600,
+            easing = LinearEasing
+        ),
+        repeatMode = RepeatMode.Reverse
+    )
+)

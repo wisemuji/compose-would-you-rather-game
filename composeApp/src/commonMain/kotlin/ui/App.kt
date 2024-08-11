@@ -26,7 +26,7 @@ fun App() {
 
         MaterialTheme {
             Box(modifier = Modifier.fillMaxSize()) {
-                GameScreen(
+                MainScreen(
                     uiState = uiState,
                     onSelectOption = { option ->
                         viewModel.selectOption(option)
