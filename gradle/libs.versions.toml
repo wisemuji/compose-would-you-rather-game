@@ -11,6 +11,7 @@ androidx-espresso-core = "3.6.1"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 compose-plugin = "1.7.0-alpha01"
+compottie = "2.0.0-beta02"
 junit = "4.13.2"
 kotlin = "2.0.0"
 kotlinx-datetime = "0.6.0"
@@ -46,6 +47,8 @@ ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kto
 
 koin-android = {group = "io.insert-koin", name = "koin-android", version.ref="koin"}
 koin-compose = {group = "io.insert-koin", name = "koin-compose", version.ref="koin"}
+
+compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

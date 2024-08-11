@@ -44,6 +44,7 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(libs.compottie)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(compose.runtime)
             implementation(compose.foundation)
