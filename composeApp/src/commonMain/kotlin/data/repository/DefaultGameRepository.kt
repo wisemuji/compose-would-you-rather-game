@@ -1,10 +1,9 @@
 package data.repository
 
-import com.wisemuji.wouldyourathergame.BuildKonfig
-import model.Option
-import model.TurnResult
 import data.network.GeminiService
 import data.network.model.GameResponse
+import model.Option
+import model.TurnResult
 
 class DefaultGameRepository(
     private val service: GeminiService,
@@ -12,13 +11,13 @@ class DefaultGameRepository(
 
     override suspend fun startGame(): TurnResult {
         val response = service
-            .generateContent(GAME_START_COMMAND, BuildKonfig.GEMINI_API_KEY)
+            .generateContent(GAME_START_COMMAND)
         val gameResponse = response.candidates.first().content.parts.first().text
         return gameResponse.toTurnResult()
     }
 
     override suspend fun selectOption(option: Option): TurnResult {
-        val response = service.generateContent(option.toGeminiOption(), BuildKonfig.GEMINI_API_KEY)
+        val response = service.generateContent(option.toGeminiOption())
         val gameResponse = response.candidates.first().content.parts.first().text
         return gameResponse.toTurnResult()
     }
