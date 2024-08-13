@@ -42,8 +42,8 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.compose.viewmodel.koinViewModel
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
-import ui.result.GameResult
 import ui.loading.LoadingScreen
+import ui.result.GameResult
 
 private const val GHOST_LOTTIE_FILE = "files/ghost.json"
 
