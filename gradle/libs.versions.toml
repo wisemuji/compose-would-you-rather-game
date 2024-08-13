@@ -15,11 +15,12 @@ compottie = "2.0.0-beta02"
 junit = "4.13.2"
 kotlin = "2.0.0"
 kotlinx-datetime = "0.6.0"
-koin = "3.6.0-alpha1"
+koin = "4.0.0-RC1"
 ktor = "2.3.11"
 coroutines = "1.8.1"
 lifecycleViewmodel = "2.8.4"
 buildkonfig = "0.15.1"
+navigationCompose = "2.8.0-beta07"
 
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
@@ -47,8 +48,11 @@ ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "kto
 
 koin-android = {group = "io.insert-koin", name = "koin-android", version.ref="koin"}
 koin-compose = {group = "io.insert-koin", name = "koin-compose", version.ref="koin"}
+koin-compose-vm = {group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref="koin"}
 
 compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+
+navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

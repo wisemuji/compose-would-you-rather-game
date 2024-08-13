@@ -1,8 +1,6 @@
 package ui.game
 
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.core.InfiniteTransition
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
@@ -21,6 +19,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,17 +39,50 @@ import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import model.Option
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import ui.GameUiState
+import org.koin.compose.viewmodel.koinViewModel
+import ui.LocalNavAnimatedVisibilityScope
+import ui.LocalSharedTransitionScope
+import ui.gameresult.GameResult
+import ui.gameresult.GameResultUiState
+import ui.loading.LoadingScreen
 
 private const val GHOST_LOTTIE_FILE = "files/ghost.json"
 
-@OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
-fun GameScreen(
+internal fun GameScreen(
+    navigateToResult: (GameResult) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: GameViewModel = koinViewModel(),
+) {
+    val uiState: GameUiState by viewModel.uiState.collectAsState()
+    val showResult by viewModel.showResult.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.startGame()
+    }
+    LaunchedEffect(showResult) {
+        showResult?.let { navigateToResult(it) }
+    }
+
+    when (val uiState = uiState) {
+        GameUiState.LoadingGame -> {
+            LoadingScreen()
+        }
+
+        is GameUiState.SelectableOptions -> {
+            GameScreen(
+                uiState = uiState,
+                onOptionSelected = { viewModel.selectOption(it) },
+                modifier = modifier
+            )
+        }
+    }
+}
+
+@Composable
+private fun GameScreen(
     uiState: GameUiState.SelectableOptions,
     onOptionSelected: (Option) -> Unit,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
     Box {
@@ -63,8 +96,6 @@ fun GameScreen(
                 option = Option.A,
                 onClick = { onOptionSelected(it) },
                 enabled = !uiState.isLoadingOptions,
-                sharedTransitionScope = sharedTransitionScope,
-                animatedVisibilityScope = animatedVisibilityScope,
                 modifier = Modifier.weight(1f),
             )
             OptionButton(
@@ -72,8 +103,6 @@ fun GameScreen(
                 option = Option.B,
                 onClick = { onOptionSelected(it) },
                 enabled = !uiState.isLoadingOptions,
-                sharedTransitionScope = sharedTransitionScope,
-                animatedVisibilityScope = animatedVisibilityScope,
                 modifier = Modifier.weight(1f),
             )
         }
@@ -154,10 +183,13 @@ private fun OptionButton(
     option: Option,
     onClick: (Option) -> Unit,
     enabled: Boolean,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
+    val sharedTransitionScope = LocalSharedTransitionScope.current
+        ?: throw IllegalStateException("No SharedElementScope found")
+    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+        ?: throw IllegalStateException("No AnimatedVisibility found")
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
@@ -197,7 +229,7 @@ private fun OptionButton(
                 lineHeight = 30.sp,
                 letterSpacing = -(0.3).sp,
                 modifier = Modifier.sharedElement(
-                    rememberSharedContentState(key = option.name),
+                    rememberSharedContentState(key = text),
                     animatedVisibilityScope = animatedVisibilityScope
                 )
             )

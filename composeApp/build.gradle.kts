@@ -44,6 +44,7 @@ kotlin {
             implementation(libs.koin.android)
         }
         commonMain.dependencies {
+            implementation(libs.navigation.compose)
             implementation(libs.compottie)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(compose.runtime)
@@ -55,6 +56,7 @@ kotlin {
 
             implementation(libs.kotlinx.datetime)
             implementation(libs.koin.compose)
+            implementation(libs.koin.compose.vm)
             implementation(libs.kotlinx.coroutines)
 
             with(libs.ktor.client) {

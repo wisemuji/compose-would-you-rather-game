@@ -1,8 +1,11 @@
 package di
 
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
-import ui.MainViewModel
+import ui.game.GameViewModel
+import ui.gameresult.ResultViewModel
 
 val viewModelModule = module {
-    single { MainViewModel(get()) }
+    viewModel { GameViewModel(get()) }
+    viewModel { parameters -> ResultViewModel(gameResult = parameters.get()) }
 }

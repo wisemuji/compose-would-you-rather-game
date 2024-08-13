@@ -1,9 +1,7 @@
 package ui.gameresult
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
-import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
@@ -23,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -45,19 +44,43 @@ import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
-import ui.GameUiState
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
+import ui.LocalNavAnimatedVisibilityScope
+import ui.LocalSharedTransitionScope
 import ui.gameresult.component.RestartColumn
 
 private const val CONFETTI_LOTTIE_FILE = "files/confetti.json"
 private const val CONFETTI_DURATION = 3_000L
 
-@OptIn(ExperimentalSharedTransitionApi::class)
+
 @Composable
-fun GameResultScreen(
-    uiState: GameUiState.GameResult,
+internal fun ResultScreen(
+    gameResult: GameResult,
+    navigateToGame: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: ResultViewModel = koinViewModel { parametersOf(gameResult) },
+) {
+    val uiState: GameResultUiState by viewModel.uiState.collectAsState()
+    val restart: Boolean by viewModel.restart.collectAsState()
+
+    LaunchedEffect(restart) {
+        if (restart) {
+            navigateToGame()
+        }
+    }
+
+    ResultScreen(
+        uiState = uiState,
+        onRestartClick = { viewModel.restart() },
+        modifier = modifier
+    )
+}
+
+@Composable
+private fun ResultScreen(
+    uiState: GameResultUiState,
     onRestartClick: () -> Unit,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
     var showConfetti by remember { mutableStateOf(true) }
@@ -99,15 +122,12 @@ fun GameResultScreen(
                 )
                 Spacer(modifier = Modifier.padding(12.dp))
                 FinalChoiceBox(
-                    text = uiState.selectedOption.comment,
-                    optionKey = uiState.selectedOption.option.name,
-                    sharedTransitionScope = sharedTransitionScope,
-                    animatedVisibilityScope = animatedVisibilityScope,
+                    text = uiState.gameResult.optionComment,
                     modifier = Modifier
                         .fillMaxSize()
                 )
                 Text(
-                    text = uiState.lesson,
+                    text = uiState.gameResult.lesson,
                     fontSize = 16.sp,
                     color = Color.Black,
                     letterSpacing = 0.25.sp,
@@ -141,11 +161,12 @@ fun GameResultScreen(
 @Composable
 private fun FinalChoiceBox(
     text: String,
-    optionKey: String,
-    sharedTransitionScope: SharedTransitionScope,
-    animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
+    val sharedTransitionScope = LocalSharedTransitionScope.current
+        ?: throw IllegalStateException("No SharedElementScope found")
+    val animatedVisibilityScope = LocalNavAnimatedVisibilityScope.current
+        ?: throw IllegalStateException("No AnimatedVisibility found")
     Box(
         modifier = modifier
             .shadow(8.dp, RoundedCornerShape(8.dp))
@@ -163,7 +184,7 @@ private fun FinalChoiceBox(
                 modifier = Modifier
                     .fillMaxWidth()
                     .sharedElement(
-                        rememberSharedContentState(key = optionKey),
+                        rememberSharedContentState(key = text),
                         animatedVisibilityScope = animatedVisibilityScope
                     )
             )
