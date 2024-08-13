@@ -43,7 +43,6 @@ fun GameScreen(
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
 ) {
-    val animationValue by rememberInfiniteTransition().animateBreathing()
     Box {
         Column(
             modifier = modifier
@@ -68,8 +67,7 @@ fun GameScreen(
             )
         }
         QuestionBox(
-            value = animationValue,
-            uiState = uiState,
+            text = uiState.question,
             modifier = Modifier.align(Alignment.Center)
         )
     }
@@ -77,15 +75,16 @@ fun GameScreen(
 
 @Composable
 private fun QuestionBox(
-    value: Float,
-    uiState: GameUiState.SelectableOptions,
+    text: String,
     modifier: Modifier = Modifier,
 ) {
+    val animationValue by rememberInfiniteTransition().animateBreathing()
+
     Box(
         modifier = modifier
             .graphicsLayer {
-                scaleX = value
-                scaleY = value
+                scaleX = animationValue
+                scaleY = animationValue
             }
             .padding(24.dp)
             .shadow(8.dp, shape = RoundedCornerShape(16.dp))
@@ -96,7 +95,7 @@ private fun QuestionBox(
             .padding(4.dp)
     ) {
         Text(
-            text = uiState.question,
+            text = text,
             fontSize = 18.sp,
             fontWeight = Medium,
             textAlign = TextAlign.Center,
