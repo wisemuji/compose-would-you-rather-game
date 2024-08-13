@@ -1,4 +1,4 @@
-package ui.gameresult.component
+package ui.result.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package ui.gameresult
+package ui.result
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

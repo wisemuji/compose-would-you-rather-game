@@ -3,7 +3,7 @@ package ui.navigation
 import androidx.core.bundle.Bundle
 import androidx.navigation.NavType
 import kotlinx.serialization.json.Json
-import ui.gameresult.GameResult
+import ui.result.GameResult
 import kotlin.reflect.typeOf
 
 class GameResultNavType : NavType<GameResult>(isNullableAllowed = false) {

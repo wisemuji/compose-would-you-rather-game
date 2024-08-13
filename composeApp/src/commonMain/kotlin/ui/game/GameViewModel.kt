@@ -10,7 +10,7 @@ import kotlinx.serialization.Serializable
 import model.Option
 import model.TurnResult
 import ui.game.GameUiState.SelectableOptions
-import ui.gameresult.GameResult
+import ui.result.GameResult
 
 @Serializable
 sealed interface GameUiState {

@@ -20,7 +20,7 @@ import androidx.navigation.toRoute
 import di.koinAppDeclaration
 import org.koin.compose.KoinApplication
 import ui.game.GameScreen
-import ui.gameresult.ResultScreen
+import ui.result.ResultScreen
 import ui.navigation.GameResultNavType
 import ui.navigation.Screen
 

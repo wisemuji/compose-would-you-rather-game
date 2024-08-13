@@ -1,4 +1,4 @@
-package ui.gameresult
+package ui.result
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalSharedTransitionApi
@@ -48,7 +48,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
-import ui.gameresult.component.RestartColumn
+import ui.result.component.RestartColumn
 
 private const val CONFETTI_LOTTIE_FILE = "files/confetti.json"
 private const val CONFETTI_DURATION = 3_000L
