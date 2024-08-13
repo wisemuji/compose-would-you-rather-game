@@ -49,7 +49,7 @@ private const val GHOST_LOTTIE_FILE = "files/ghost.json"
 
 @Composable
 internal fun GameScreen(
-    navigateToResult: (GameResult) -> Unit,
+    onShowResult: (GameResult) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: GameViewModel = koinViewModel(),
 ) {
@@ -60,7 +60,7 @@ internal fun GameScreen(
         viewModel.startGame()
     }
     LaunchedEffect(showResult) {
-        showResult?.let { navigateToResult(it) }
+        showResult?.let { onShowResult(it) }
     }
 
     when (val uiState = uiState) {

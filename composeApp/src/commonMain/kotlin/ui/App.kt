@@ -14,15 +14,14 @@ import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
 import di.koinAppDeclaration
 import org.koin.compose.KoinApplication
-import ui.game.GameScreen
-import ui.result.ResultScreen
-import ui.navigation.GameResultNavType
+import ui.game.navigation.gameScreen
+import ui.game.navigation.navigateToGame
 import ui.navigation.Screen
+import ui.result.navigation.navigateToResult
+import ui.result.navigation.resultScreen
 
 
 val LocalNavAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope?> { null }
@@ -49,28 +48,16 @@ fun App(
                                 .fillMaxSize()
                                 .padding(innerPadding)
                         ) {
-                            composable<Screen.Game> {
-                                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
-                                    GameScreen(
-                                        navigateToResult = {
-                                            navController.popBackStack()
-                                            navController.navigate(Screen.Result(it))
-                                        },
-                                    )
+                            gameScreen(
+                                onShowResult = {
+                                    navController.navigateToResult(it)
                                 }
-                            }
-                            composable<Screen.Result>(
-                                typeMap = GameResultNavType.TYPE_MAP
-                            ) { backStackEntry ->
-                                val args: Screen.Result =
-                                    backStackEntry.toRoute<Screen.Result>()
-                                CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
-                                    ResultScreen(
-                                        gameResult = args.gameResult,
-                                        navigateToGame = { navController.navigate(Screen.Game) },
-                                    )
+                            )
+                            resultScreen(
+                                onRestart = {
+                                    navController.navigateToGame()
                                 }
-                            }
+                            )
                         }
                     }
                 }

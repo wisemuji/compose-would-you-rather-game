@@ -57,7 +57,7 @@ private const val CONFETTI_DURATION = 3_000L
 @Composable
 internal fun ResultScreen(
     gameResult: GameResult,
-    navigateToGame: () -> Unit,
+    onRestart: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ResultViewModel = koinViewModel { parametersOf(gameResult) },
 ) {
@@ -66,7 +66,7 @@ internal fun ResultScreen(
 
     LaunchedEffect(restart) {
         if (restart) {
-            navigateToGame()
+            onRestart()
         }
     }
 
