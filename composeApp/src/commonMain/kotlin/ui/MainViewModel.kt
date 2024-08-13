@@ -13,13 +13,14 @@ import ui.GameUiState.SelectableOptions
 
 sealed interface GameUiState {
     // TODO: error handling
-    data object Loading : GameUiState
+    data object LoadingGame : GameUiState
 
     data class SelectableOptions(
         val remainingTurns: Int,
         val question: String,
         val optionA: String,
         val optionB: String,
+        val isLoadingOptions: Boolean = false,
     ) : GameUiState
 
     data class GameResult(
@@ -37,10 +38,11 @@ class MainViewModel(
     private val gameRepository: GameRepository,
 ) : ViewModel() {
 
-    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.Loading)
+    private val _uiState: MutableStateFlow<GameUiState> = MutableStateFlow(GameUiState.LoadingGame)
     val uiState: StateFlow<GameUiState> = _uiState
 
     fun startGame() {
+        _uiState.value = GameUiState.LoadingGame
         viewModelScope.launch {
             val turnResult = gameRepository.startGame()
             _uiState.value = when (turnResult) {
@@ -59,6 +61,8 @@ class MainViewModel(
     }
 
     fun selectOption(option: Option) {
+        if ((uiState.value as SelectableOptions).isLoadingOptions) return
+        _uiState.value = (uiState.value as SelectableOptions).copy(isLoadingOptions = true)
         viewModelScope.launch {
             val turnResult = gameRepository.selectOption(option)
             _uiState.value = when (turnResult) {

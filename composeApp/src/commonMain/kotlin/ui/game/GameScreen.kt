@@ -10,12 +10,14 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -31,8 +33,15 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Medium
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import compose_would_you_rather_game.composeapp.generated.resources.Res
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
+import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import model.Option
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import ui.GameUiState
+
+private const val GHOST_LOTTIE_FILE = "files/ghost.json"
 
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
@@ -53,6 +62,7 @@ fun GameScreen(
                 text = uiState.optionA,
                 option = Option.A,
                 onClick = { onOptionSelected(it) },
+                enabled = !uiState.isLoadingOptions,
                 sharedTransitionScope = sharedTransitionScope,
                 animatedVisibilityScope = animatedVisibilityScope,
                 modifier = Modifier.weight(1f),
@@ -61,6 +71,7 @@ fun GameScreen(
                 text = uiState.optionB,
                 option = Option.B,
                 onClick = { onOptionSelected(it) },
+                enabled = !uiState.isLoadingOptions,
                 sharedTransitionScope = sharedTransitionScope,
                 animatedVisibilityScope = animatedVisibilityScope,
                 modifier = Modifier.weight(1f),
@@ -70,6 +81,12 @@ fun GameScreen(
             text = uiState.question,
             modifier = Modifier.align(Alignment.Center)
         )
+        if (uiState.isLoadingOptions) {
+            Ghost(
+                modifier = Modifier.size(140.dp)
+                    .align(Alignment.Center)
+            )
+        }
     }
 }
 
@@ -107,12 +124,36 @@ private fun QuestionBox(
     }
 }
 
+
+@OptIn(ExperimentalResourceApi::class)
+@Composable
+private fun Ghost(modifier: Modifier = Modifier) {
+    val composition by rememberLottieComposition {
+        LottieCompositionSpec.JsonString(
+            Res.readBytes(GHOST_LOTTIE_FILE).decodeToString()
+        )
+    }
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier
+    ) {
+        Image(
+            painter = rememberLottiePainter(
+                composition = composition,
+                iterations = 1,
+            ),
+            contentDescription = "Ghost animation"
+        )
+    }
+}
+
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 private fun OptionButton(
     text: String,
     option: Option,
     onClick: (Option) -> Unit,
+    enabled: Boolean,
     sharedTransitionScope: SharedTransitionScope,
     animatedVisibilityScope: AnimatedVisibilityScope,
     modifier: Modifier = Modifier,
@@ -143,7 +184,7 @@ private fun OptionButton(
                     end = Offset.Infinite,
                 ),
             )
-            .clickable { onClick(option) }
+            .clickable(enabled = enabled) { onClick(option) }
             .padding(16.dp)
     ) {
         with(sharedTransitionScope) {

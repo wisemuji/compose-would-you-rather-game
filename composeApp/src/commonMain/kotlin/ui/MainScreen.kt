@@ -51,7 +51,7 @@ fun MainScreen(
                         )
                     }
 
-                    GameUiState.Loading -> {
+                    GameUiState.LoadingGame -> {
                         LoadingScreen()
                     }
                 }
