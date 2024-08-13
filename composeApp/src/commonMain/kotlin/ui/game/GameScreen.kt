@@ -43,7 +43,6 @@ import org.koin.compose.viewmodel.koinViewModel
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
 import ui.gameresult.GameResult
-import ui.gameresult.GameResultUiState
 import ui.loading.LoadingScreen
 
 private const val GHOST_LOTTIE_FILE = "files/ghost.json"
