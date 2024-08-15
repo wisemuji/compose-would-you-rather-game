@@ -15,7 +15,7 @@ coroutines = "1.8.1"
 lifecycleViewmodel = "2.8.4"
 buildkonfig = "0.15.1"
 navigationCompose = "2.8.0-beta07"
-urlencoderLib = "1.5.0"
+uriKmp = "0.0.18"
 
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
@@ -42,7 +42,7 @@ compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "comp
 
 navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 
-urlencoder-lib = { module = "net.thauvin.erik.urlencoder:urlencoder-lib", version.ref = "urlencoderLib" }
+uri-kmp = { module = "com.eygraber:uri-kmp", version.ref = "uriKmp" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

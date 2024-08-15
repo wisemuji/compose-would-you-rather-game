@@ -8,5 +8,8 @@ sealed interface Screen {
     data object Game : Screen
 
     @Serializable
-    data class Result(val gameResult: GameResult) : Screen
+    data class Result(
+        val optionComment: String,
+        val lesson: String,
+    ) : Screen
 }

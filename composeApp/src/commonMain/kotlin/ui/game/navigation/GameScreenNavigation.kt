@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import ui.LocalNavAnimatedVisibilityScope
 import ui.game.GameScreen
 import ui.navigation.Screen
+import ui.navigation.URLEncodedNavType.Companion.TYPE_MAP
 import ui.result.GameResult
 
 fun NavController.navigateToGame() {
@@ -17,7 +18,9 @@ fun NavController.navigateToGame() {
 fun NavGraphBuilder.gameScreen(
     onShowResult: (GameResult) -> Unit,
 ) {
-    composable<Screen.Game> {
+    composable<Screen.Game>(
+        typeMap = TYPE_MAP
+    ) {
         CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
             GameScreen(
                 onShowResult = onShowResult,
