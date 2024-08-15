@@ -2,5 +2,5 @@
     <string name="loading">Drum roll, please!</string>
     <string name="restart">Restart</string>
     <string name="restart_caption">Unhappy with the result?</string>
-    <string name="result_title">Your final choice is...</string>
+    <string name="result_title">You choice to...</string>
 </resources>
