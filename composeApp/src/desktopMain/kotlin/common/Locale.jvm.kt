@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-package data.network.model
+package common
 
-enum class GeminiCommand {
-    START_GAME,
-    A,
-    B;
+import java.util.Locale as JavaLocale
 
-    override fun toString(): String = when (this) {
-        START_GAME -> "Start game"
-        A -> "A"
-        B -> "B"
-    }
+class JVMLocale : Locale {
+    override val language: Language
+        get() = JavaLocale.getDefault().language
+            .let {
+                when (it) {
+                    "ko" -> Language.KOREAN
+                    else -> Language.ENGLISH
+                }
+            }
 }
+
+actual fun getLocale(): Locale = JVMLocale()

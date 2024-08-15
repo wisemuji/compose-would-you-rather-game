@@ -14,16 +14,21 @@
  * limitations under the License.
  */
 
-package data.network.model
+package common
 
-enum class GeminiCommand {
-    START_GAME,
-    A,
-    B;
+import platform.Foundation.NSLocale
+import platform.Foundation.currentLocale
+import platform.Foundation.languageCode
 
-    override fun toString(): String = when (this) {
-        START_GAME -> "Start game"
-        A -> "A"
-        B -> "B"
-    }
+class IOSLocale : Locale {
+    override val language: Language
+        get() = NSLocale.currentLocale.languageCode
+            .let {
+                when (it) {
+                    "ko" -> Language.KOREAN
+                    else -> Language.ENGLISH
+                }
+            }
 }
+
+actual fun getLocale(): Locale = IOSLocale()

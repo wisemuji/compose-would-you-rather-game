@@ -16,6 +16,7 @@ lifecycleViewmodel = "2.8.4"
 buildkonfig = "0.15.1"
 navigationCompose = "2.8.0-beta07"
 uriKmp = "0.0.18"
+spotless = "6.21.0"
 
 [libraries]
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleViewmodel" }
@@ -52,3 +53,4 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 buildkonfig = { id = "com.codingfeline.buildkonfig", version.ref = "buildkonfig" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
