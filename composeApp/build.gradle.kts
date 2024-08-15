@@ -43,6 +43,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
+            implementation(libs.urlencoder.lib)
             implementation(libs.navigation.compose)
             implementation(libs.compottie)
             implementation(libs.androidx.lifecycle.viewmodel)
