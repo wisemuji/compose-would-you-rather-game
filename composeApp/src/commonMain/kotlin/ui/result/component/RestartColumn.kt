@@ -5,12 +5,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose_would_you_rather_game.composeapp.generated.resources.Res
@@ -29,10 +29,8 @@ fun RestartColumn(
     ) {
         Text(
             text = stringResource(Res.string.restart_caption),
-            fontSize = 18.sp,
             color = Color(0xFFdbdbdb),
-            letterSpacing = 0.1.sp,
-            lineHeight = 22.sp,
+            style = MaterialTheme.typography.h6,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
@@ -54,11 +52,9 @@ private fun RestartButton(
     ) {
         Text(
             text = stringResource(Res.string.restart),
-            fontSize = 18.sp,
-            fontWeight = Bold,
             color = Color.White,
-            letterSpacing = 0.1.sp,
-            lineHeight = 22.sp,
+            fontSize = 18.sp,
+            style = MaterialTheme.typography.button,
         )
     }
 }

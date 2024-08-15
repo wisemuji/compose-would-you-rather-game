@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import compose_would_you_rather_game.composeapp.generated.resources.Res
 import compose_would_you_rather_game.composeapp.generated.resources.loading
 import io.github.alexzhirkevich.compottie.Compottie
@@ -56,8 +56,8 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
         )
         Text(
             text = stringResource(Res.string.loading),
-            fontSize = 18.sp,
             color = Color.White,
+            style = MaterialTheme.typography.h6,
             modifier = Modifier.padding(16.dp)
         )
     }

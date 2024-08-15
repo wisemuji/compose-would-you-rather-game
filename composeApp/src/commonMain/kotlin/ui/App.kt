@@ -6,7 +6,6 @@ import androidx.compose.animation.SharedTransitionLayout
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -22,6 +21,7 @@ import ui.game.navigation.navigateToGame
 import ui.navigation.Screen
 import ui.result.navigation.navigateToResult
 import ui.result.navigation.resultScreen
+import ui.theme.WouldYouRatherGameTheme
 
 
 val LocalNavAnimatedVisibilityScope = compositionLocalOf<AnimatedVisibilityScope?> { null }
@@ -35,7 +35,7 @@ fun App(
     navController: NavHostController = rememberNavController(),
 ) {
     KoinApplication(application = koinAppDeclaration) {
-        MaterialTheme {
+        WouldYouRatherGameTheme {
             Scaffold { innerPadding ->
                 SharedTransitionLayout {
                     CompositionLocalProvider(

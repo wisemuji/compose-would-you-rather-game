@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -29,10 +30,8 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.text.font.FontWeight.Companion.Medium
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import compose_would_you_rather_game.composeapp.generated.resources.Res
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
@@ -141,11 +140,9 @@ private fun QuestionBox(
     ) {
         Text(
             text = text,
-            fontSize = 18.sp,
-            fontWeight = Medium,
+            style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
             color = Color(0xFF390ca3),
-            letterSpacing = 0.1.sp,
             modifier = Modifier
                 .padding(12.dp)
         )
@@ -221,12 +218,9 @@ private fun OptionButton(
         with(sharedTransitionScope) {
             Text(
                 text = text,
+                style = MaterialTheme.typography.h6,
                 color = Color.White,
-                fontSize = 24.sp,
-                fontWeight = Medium,
                 textAlign = TextAlign.Center,
-                lineHeight = 30.sp,
-                letterSpacing = -(0.3).sp,
                 modifier = Modifier.sharedElement(
                     rememberSharedContentState(key = text),
                     animatedVisibilityScope = animatedVisibilityScope
