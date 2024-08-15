@@ -16,7 +16,6 @@ import ui.result.GameResult
 
 @Serializable
 sealed interface GameUiState {
-    // TODO: error handling
     data object LoadingGame : GameUiState
 
     data class SelectableOptions(
@@ -25,7 +24,17 @@ sealed interface GameUiState {
         val optionA: String,
         val optionB: String,
         val isLoadingOptions: Boolean = false,
-    ) : GameUiState
+    ) : GameUiState {
+        companion object {
+            fun fromTurnResult(turnResult: TurnResult.SelectableOptions): SelectableOptions =
+                SelectableOptions(
+                    remainingTurns = turnResult.remainingTurns,
+                    question = turnResult.question,
+                    optionA = turnResult.optionA,
+                    optionB = turnResult.optionB,
+                )
+        }
+    }
 }
 
 class GameViewModel(
@@ -44,25 +53,19 @@ class GameViewModel(
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         throwable.printStackTrace()
         when (throwable) {
-            is JsonConvertException, is IllegalArgumentException -> _showError.value = true
+            is JsonConvertException, is IllegalArgumentException, is IllegalStateException ->
+                _showError.value = true
         }
     }
 
     fun startGame() {
         _uiState.value = GameUiState.LoadingGame
+
         viewModelScope.launch(exceptionHandler) {
             val turnResult = gameRepository.startGame()
             _uiState.value = when (turnResult) {
-                is TurnResult.SelectableOptions -> {
-                    SelectableOptions(
-                        remainingTurns = turnResult.remainingTurns,
-                        question = turnResult.question,
-                        optionA = turnResult.optionA,
-                        optionB = turnResult.optionB,
-                    )
-                }
-
-                is TurnResult.GameOver -> TODO()
+                is TurnResult.SelectableOptions -> SelectableOptions.fromTurnResult(turnResult)
+                is TurnResult.GameOver -> throw IllegalStateException("Game should not be over at the starting state.")
             }
         }
     }
