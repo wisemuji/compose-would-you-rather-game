@@ -47,6 +47,9 @@ import org.koin.core.parameter.parametersOf
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
 import ui.result.component.RestartColumn
+import ui.theme.Blue20
+import ui.theme.Blue60
+import ui.theme.Purple80
 
 private const val CONFETTI_LOTTIE_FILE = "files/confetti.json"
 private const val CONFETTI_DURATION = 3_000L
@@ -90,7 +93,7 @@ private fun ResultScreen(
     Box {
         Column(
             modifier = modifier
-                .background(Color(0xFF303030))
+                .background(MaterialTheme.colors.background)
                 .fillMaxHeight()
                 .verticalScroll(rememberScrollState())
         ) {
@@ -100,9 +103,9 @@ private fun ResultScreen(
                     .background(
                         Brush.verticalGradient(
                             colors = listOf(
-                                Color(0xFF3A0CA3),
-                                Color(0xFF4361EE),
-                                Color(0xFFa9b4eb),
+                                Purple80,
+                                Blue60,
+                                Blue20,
                             ),
                             startY = 0f,
                             endY = 1000f,
@@ -124,7 +127,7 @@ private fun ResultScreen(
                 )
                 Text(
                     text = uiState.gameResult.lesson,
-                    color = Color.Black,
+                    color = MaterialTheme.colors.onSurface,
                     style = MaterialTheme.typography.body1,
                     modifier = Modifier
                         .padding(horizontal = 16.dp, vertical = 24.dp)

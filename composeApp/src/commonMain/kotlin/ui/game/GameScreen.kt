@@ -43,6 +43,14 @@ import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
 import ui.loading.LoadingScreen
 import ui.result.GameResult
+import ui.theme.Blue40
+import ui.theme.Blue50
+import ui.theme.Blue60
+import ui.theme.Blue70
+import ui.theme.Pink20
+import ui.theme.Pink40
+import ui.theme.Pink50
+import ui.theme.Pink60
 
 private const val GHOST_LOTTIE_FILE = "files/ghost.json"
 
@@ -86,7 +94,7 @@ private fun GameScreen(
     Box {
         Column(
             modifier = modifier
-                .background(color = Color(0xFF262628)),
+                .background(color = MaterialTheme.colors.background),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OptionButton(
@@ -133,7 +141,7 @@ private fun QuestionBox(
             .padding(24.dp)
             .shadow(8.dp, shape = RoundedCornerShape(16.dp))
             .background(
-                color = Color(0xFFffffff),
+                color = MaterialTheme.colors.surface,
                 shape = RoundedCornerShape(16.dp)
             )
             .padding(4.dp)
@@ -142,7 +150,7 @@ private fun QuestionBox(
             text = text,
             style = MaterialTheme.typography.h6,
             textAlign = TextAlign.Center,
-            color = Color(0xFF390ca3),
+            color = MaterialTheme.colors.onSurface,
             modifier = Modifier
                 .padding(12.dp)
         )
@@ -193,20 +201,8 @@ private fun OptionButton(
             .background(
                 brush = Brush.linearGradient(
                     colors = when (option) {
-                        // TODO: extract color resources
-                        Option.A -> listOf(
-                            Color(0xFFf21379),
-                            Color(0xFFf72585),
-                            Color(0xFFff5ea7),
-                            Color(0xFFfa96c3)
-                        )
-
-                        Option.B -> listOf(
-                            Color(0xFF8FA1F3),
-                            Color(0xFF6b83f2),
-                            Color(0xFF4362ee),
-                            Color(0xFF2b4eed)
-                        )
+                        Option.A -> listOf(Pink60, Pink50, Pink40, Pink20)
+                        Option.B -> listOf(Blue40, Blue50, Blue60, Blue70)
                     },
                     start = Offset.Zero,
                     end = Offset.Infinite,
@@ -219,7 +215,7 @@ private fun OptionButton(
             Text(
                 text = text,
                 style = MaterialTheme.typography.h5,
-                color = Color.White,
+                color = MaterialTheme.colors.primaryVariant,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.sharedElement(
                     rememberSharedContentState(key = text),

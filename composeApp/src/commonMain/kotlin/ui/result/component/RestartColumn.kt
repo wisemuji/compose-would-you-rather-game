@@ -24,13 +24,13 @@ fun RestartColumn(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        verticalArrangement = Arrangement.Absolute.spacedBy(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
         modifier = modifier,
     ) {
         Text(
             text = stringResource(Res.string.restart_caption),
-            color = Color(0xFFdbdbdb),
-            style = MaterialTheme.typography.h6,
+            color = MaterialTheme.colors.onBackground,
+            style = MaterialTheme.typography.subtitle1,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
         )
@@ -46,15 +46,14 @@ private fun RestartButton(
     Button(
         onClick = onRestartClick,
         colors = ButtonDefaults
-            .buttonColors(backgroundColor = Color(0xFFF72585)),
+            .buttonColors(backgroundColor = MaterialTheme.colors.primary),
         modifier = modifier
             .fillMaxWidth()
     ) {
         Text(
             text = stringResource(Res.string.restart),
             color = Color.White,
-            fontSize = 18.sp,
-            style = MaterialTheme.typography.button,
+            style = MaterialTheme.typography.h6,
         )
     }
 }

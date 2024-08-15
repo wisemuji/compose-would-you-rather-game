@@ -41,7 +41,7 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
             .fillMaxSize()
-            .background(color = Color(0xFF303030))
+            .background(color = MaterialTheme.colors.background)
             .padding(16.dp),
     ) {
         Image(

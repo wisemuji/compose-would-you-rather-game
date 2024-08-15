@@ -13,8 +13,8 @@ class GameResultNavType : NavType<GameResult>(isNullableAllowed = false) {
         val jsonEncoded = Json.encodeToString(
             GameResult.serializer(),
             value.copy(
-                optionComment = UrlEncoderUtil.encode(value.optionComment),
-                lesson = UrlEncoderUtil.encode(value.lesson),
+                optionComment = UrlEncoderUtil.encode(value.optionComment, spaceToPlus = true),
+                lesson = UrlEncoderUtil.encode(value.lesson, spaceToPlus = true),
             )
         )
         return jsonEncoded
@@ -29,8 +29,8 @@ class GameResultNavType : NavType<GameResult>(isNullableAllowed = false) {
         val jsonDecoded = Json.decodeFromString(GameResult.serializer(), value)
         return jsonDecoded
             .copy(
-                optionComment = UrlEncoderUtil.decode(jsonDecoded.optionComment),
-                lesson = UrlEncoderUtil.decode(jsonDecoded.lesson),
+                optionComment = UrlEncoderUtil.decode(jsonDecoded.optionComment, plusToSpace = true),
+                lesson = UrlEncoderUtil.decode(jsonDecoded.lesson, plusToSpace = true),
             )
     }
 
