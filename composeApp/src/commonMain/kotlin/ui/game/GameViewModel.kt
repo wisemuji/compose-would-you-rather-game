@@ -3,6 +3,8 @@ package ui.game
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import data.repository.GameRepository
+import io.ktor.serialization.JsonConvertException
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -36,9 +38,19 @@ class GameViewModel(
     private val _showResult: MutableStateFlow<GameResult?> = MutableStateFlow(null)
     val showResult: StateFlow<GameResult?> = _showResult
 
+    private val _showError: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val showError: StateFlow<Boolean> = _showError
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
+        when (throwable) {
+            is JsonConvertException, is IllegalArgumentException -> _showError.value = true
+        }
+    }
+
     fun startGame() {
         _uiState.value = GameUiState.LoadingGame
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val turnResult = gameRepository.startGame()
             _uiState.value = when (turnResult) {
                 is TurnResult.SelectableOptions -> {
@@ -59,7 +71,7 @@ class GameViewModel(
         if ((uiState.value as SelectableOptions).isLoadingOptions) return
         _uiState.value = (uiState.value as SelectableOptions).copy(isLoadingOptions = true)
 
-        viewModelScope.launch {
+        viewModelScope.launch(exceptionHandler) {
             val turnResult = gameRepository.selectOption(option)
 
             if (turnResult is TurnResult.GameOver) {

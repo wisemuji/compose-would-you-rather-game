@@ -7,14 +7,22 @@ import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Scaffold
+import androidx.compose.material.SnackbarHostState
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.compositionLocalOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import compose_would_you_rather_game.composeapp.generated.resources.Res
+import compose_would_you_rather_game.composeapp.generated.resources.error_loading_game
 import di.koinAppDeclaration
+import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.KoinApplication
 import ui.game.navigation.gameScreen
 import ui.game.navigation.navigateToGame
@@ -36,7 +44,15 @@ fun App(
 ) {
     KoinApplication(application = koinAppDeclaration) {
         WouldYouRatherGameTheme {
-            Scaffold { innerPadding ->
+            val snackbarHostState = remember { SnackbarHostState() }
+            val snackbarMessage = stringResource(Res.string.error_loading_game)
+            val coroutineScope = rememberCoroutineScope()
+
+            Scaffold(
+                scaffoldState = rememberScaffoldState(
+                    snackbarHostState = snackbarHostState
+                )
+            ) { innerPadding ->
                 SharedTransitionLayout {
                     CompositionLocalProvider(
                         LocalSharedTransitionScope provides this
@@ -51,6 +67,11 @@ fun App(
                             gameScreen(
                                 onShowResult = {
                                     navController.navigateToResult(it)
+                                },
+                                onError = {
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(snackbarMessage)
+                                    }
                                 }
                             )
                             resultScreen(

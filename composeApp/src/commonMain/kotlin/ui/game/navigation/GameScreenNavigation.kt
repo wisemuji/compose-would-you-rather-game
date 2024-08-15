@@ -17,6 +17,7 @@ fun NavController.navigateToGame() {
 
 fun NavGraphBuilder.gameScreen(
     onShowResult: (GameResult) -> Unit,
+    onError: () -> Unit,
 ) {
     composable<Screen.Game>(
         typeMap = TYPE_MAP
@@ -24,6 +25,7 @@ fun NavGraphBuilder.gameScreen(
         CompositionLocalProvider(LocalNavAnimatedVisibilityScope provides this) {
             GameScreen(
                 onShowResult = onShowResult,
+                onError = onError,
             )
         }
     }
