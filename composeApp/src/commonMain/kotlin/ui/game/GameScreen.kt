@@ -218,7 +218,7 @@ private fun OptionButton(
         with(sharedTransitionScope) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.h5,
                 color = Color.White,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.sharedElement(
