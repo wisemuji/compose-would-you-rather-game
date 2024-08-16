@@ -19,7 +19,13 @@ package data.network.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-// TODO: add a docs text to inform this is "only content/safetySettings impl for Gemini API Request"
+/**
+ * Note: This is only content/safetySettings implementation for Gemini API Request.
+ * The Gemini SDK for Kotlin Multiplatform is currently unavailable; so I generated responses through HTTP requests using Ktor.
+ *
+ * Also refer to caution messages in [android SDK](https://github.com/google-gemini/generative-ai-android):
+ * "The Google AI SDK for Android is recommended for prototyping only."
+ */
 @Serializable
 data class RequestBody(
     val contents: List<Content>,
