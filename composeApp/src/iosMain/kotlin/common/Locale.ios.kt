@@ -17,15 +17,16 @@
 package common
 
 import platform.Foundation.NSLocale
-import platform.Foundation.currentLocale
-import platform.Foundation.languageCode
+import platform.Foundation.preferredLanguages
 
 class IOSLocale : Locale {
     override val language: Language
-        get() = NSLocale.currentLocale.languageCode
+        get() = NSLocale
+            .preferredLanguages()
+            .first()
             .let {
                 when (it) {
-                    "ko" -> Language.KOREAN
+                    "ko-KR" -> Language.KOREAN
                     else -> Language.ENGLISH
                 }
             }
