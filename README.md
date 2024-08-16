@@ -9,8 +9,8 @@
 -->
 <p align="center">
   <img alt="Android" src="https://img.shields.io/badge/Platform-Android-green.svg"/>
-  <img alt="iOS" src="https://img.shields.io/badge/Platform-iOS-gray.svg"/>
-  <img alt="Desktop" src="https://img.shields.io/badge/Platform-Desktop-blue.svg"/>
+  <img alt="iOS" src="https://img.shields.io/badge/Platform-iOS-white.svg"/>
+  <img alt="Desktop" src="https://img.shields.io/badge/Platform-Desktop-black.svg"/>
   <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
 </p>
 
@@ -20,9 +20,9 @@ This is a **"Would you rather"** game app built using the [Kotlin Multiplatform]
 
 <br/>
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4961e2f6-40c1-4fff-948b-9daf76241cb4" width="30%" />
-  <img src="https://github.com/user-attachments/assets/bcca4436-2799-4078-93c4-318d2c6fc246" width="30%" />
-  <img src="https://github.com/user-attachments/assets/8b812e02-ca34-4dac-8e89-6597b5501235" width="30%" />
+  <img src="https://github.com/user-attachments/assets/7c422d43-3ca9-4653-b424-73c367a2ecf6" width="30%" />
+  <img src="https://github.com/user-attachments/assets/1c3eb211-14fb-432d-bef9-eac89fb7ec53" width="30%" />
+  <img src="https://github.com/user-attachments/assets/eb4c9bfc-0152-4e28-80c3-ccda79ca7d6e" width="30%" />
 </p>
 
 <br/>
@@ -34,7 +34,7 @@ Compose UI is entirely shared, without the need for any native UI components.
 
 <br/>
 <p align="center">
-   <img width="90%" src="https://github.com/user-attachments/assets/561e703d-6c0c-46b5-a76f-3e34da3f7d83">
+   <img width="90%" src="https://github.com/user-attachments/assets/2d1a0aed-ab6d-4012-b268-f25f2b34f57e">
 </p>
 
 <br/>
