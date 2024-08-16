@@ -2,6 +2,6 @@
     <string name="loading">Drum roll, please!</string>
     <string name="restart">Restart</string>
     <string name="restart_caption">Unhappy with the result?</string>
-    <string name="result_title">You choice to...</string>
+    <string name="result_title">You chose to...</string>
     <string name="error_loading_game">Please try again later.</string>
 </resources>
