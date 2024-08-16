@@ -24,7 +24,6 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -47,17 +46,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import compose_would_you_rather_game.composeapp.generated.resources.Res
-import io.github.alexzhirkevich.compottie.LottieCompositionSpec
-import io.github.alexzhirkevich.compottie.rememberLottieComposition
-import io.github.alexzhirkevich.compottie.rememberLottiePainter
+import model.GameResult
 import model.Option
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.koin.compose.viewmodel.koinViewModel
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
+import ui.component.LottieImage
 import ui.loading.LoadingScreen
-import model.GameResult
 import ui.theme.Blue40
 import ui.theme.Blue50
 import ui.theme.Blue60
@@ -137,8 +132,12 @@ private fun GameScreen(
             modifier = Modifier.align(Alignment.Center)
         )
         if (uiState.isLoadingOptions) {
-            Ghost(
-                modifier = Modifier.size(140.dp)
+            LottieImage(
+                jsonString = GHOST_LOTTIE_FILE,
+                iterations = 1,
+                contentDescription = "Ghost animation",
+                modifier = Modifier
+                    .size(100.dp)
                     .align(Alignment.Center)
             )
         }
@@ -173,29 +172,6 @@ private fun QuestionBox(
             color = MaterialTheme.colors.onSurface,
             modifier = Modifier
                 .padding(12.dp)
-        )
-    }
-}
-
-
-@OptIn(ExperimentalResourceApi::class)
-@Composable
-private fun Ghost(modifier: Modifier = Modifier) {
-    val composition by rememberLottieComposition {
-        LottieCompositionSpec.JsonString(
-            Res.readBytes(GHOST_LOTTIE_FILE).decodeToString()
-        )
-    }
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-    ) {
-        Image(
-            painter = rememberLottiePainter(
-                composition = composition,
-                iterations = 1,
-            ),
-            contentDescription = "Ghost animation"
         )
     }
 }

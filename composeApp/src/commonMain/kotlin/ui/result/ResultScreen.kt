@@ -22,7 +22,6 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,17 +51,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import compose_would_you_rather_game.composeapp.generated.resources.Res
 import compose_would_you_rather_game.composeapp.generated.resources.result_title
-import io.github.alexzhirkevich.compottie.LottieCompositionSpec
-import io.github.alexzhirkevich.compottie.rememberLottieComposition
-import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kotlinx.coroutines.delay
-import org.jetbrains.compose.resources.ExperimentalResourceApi
+import model.GameResult
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
-import model.GameResult
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
+import ui.component.LottieImage
 import ui.result.component.RestartColumn
 import ui.theme.Blue20
 import ui.theme.Blue60
@@ -166,7 +162,13 @@ private fun ResultScreen(
             enter = scaleIn() + fadeIn(),
             exit = scaleOut() + fadeOut()
         ) {
-            Confetti(modifier = Modifier.fillMaxSize())
+            LottieImage(
+                jsonString = CONFETTI_LOTTIE_FILE,
+                iterations = 1,
+                contentDescription = "Confetti animation",
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+            )
         }
     }
 }
@@ -201,27 +203,5 @@ private fun FinalChoiceBox(
                     )
             )
         }
-    }
-}
-
-@OptIn(ExperimentalResourceApi::class)
-@Composable
-private fun Confetti(modifier: Modifier = Modifier) {
-    val composition by rememberLottieComposition {
-        LottieCompositionSpec.JsonString(
-            Res.readBytes(CONFETTI_LOTTIE_FILE).decodeToString()
-        )
-    }
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-    ) {
-        Image(
-            painter = rememberLottiePainter(
-                composition = composition,
-                iterations = 1,
-            ),
-            contentDescription = "Confetti animation"
-        )
     }
 }
