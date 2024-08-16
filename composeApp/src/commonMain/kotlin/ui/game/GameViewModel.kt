@@ -24,13 +24,11 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.Serializable
 import model.Option
 import model.TurnResult
 import ui.game.GameUiState.SelectableOptions
 import ui.result.GameResult
 
-@Serializable
 sealed interface GameUiState {
     data object LoadingGame : GameUiState
 

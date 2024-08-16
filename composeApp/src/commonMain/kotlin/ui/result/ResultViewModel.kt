@@ -19,9 +19,7 @@ package ui.result
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class GameResult(
     val optionComment: String,
     val lesson: String,
