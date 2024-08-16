@@ -24,7 +24,7 @@ import ui.LocalNavAnimatedVisibilityScope
 import ui.game.GameScreen
 import ui.navigation.Screen
 import ui.navigation.URLEncodedNavType.Companion.TYPE_MAP
-import ui.result.GameResult
+import model.GameResult
 
 fun NavController.navigateToGame() {
     popBackStack()

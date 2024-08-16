@@ -19,11 +19,7 @@ package ui.result
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-
-data class GameResult(
-    val optionComment: String,
-    val lesson: String,
-)
+import model.GameResult
 
 data class GameResultUiState(
     val gameResult: GameResult,

@@ -44,7 +44,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -58,7 +57,7 @@ import org.koin.compose.viewmodel.koinViewModel
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
 import ui.loading.LoadingScreen
-import ui.result.GameResult
+import model.GameResult
 import ui.theme.Blue40
 import ui.theme.Blue50
 import ui.theme.Blue60

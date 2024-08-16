@@ -23,11 +23,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import ui.LocalNavAnimatedVisibilityScope
 import ui.navigation.Screen
-import ui.navigation.URLEncodedNavType
 import ui.navigation.URLEncodedNavType.Companion.TYPE_MAP
-import ui.result.GameResult
+import model.GameResult
 import ui.result.ResultScreen
-import kotlin.reflect.typeOf
 
 fun NavController.navigateToResult(gameResult: GameResult) {
     popBackStack()

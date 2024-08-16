@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 import model.Option
 import model.TurnResult
 import ui.game.GameUiState.SelectableOptions
-import ui.result.GameResult
+import model.GameResult
 
 sealed interface GameUiState {
     data object LoadingGame : GameUiState

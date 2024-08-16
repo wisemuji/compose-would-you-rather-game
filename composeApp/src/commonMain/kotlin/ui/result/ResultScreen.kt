@@ -60,6 +60,7 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import model.GameResult
 import ui.LocalNavAnimatedVisibilityScope
 import ui.LocalSharedTransitionScope
 import ui.result.component.RestartColumn
