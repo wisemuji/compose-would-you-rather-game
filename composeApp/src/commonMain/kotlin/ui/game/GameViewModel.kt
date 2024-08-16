@@ -91,21 +91,19 @@ class GameViewModel(
         _uiState.value = (uiState.value as SelectableOptions).copy(isLoadingOptions = true)
 
         viewModelScope.launch(exceptionHandler) {
-            val turnResult = gameRepository.selectOption(option)
+            when (val turnResult = gameRepository.selectOption(option)) {
+                is TurnResult.GameOver -> {
+                    val uiState = uiState.value as? SelectableOptions
+                        ?: throw IllegalStateException("Game should not be over before selecting an option.")
+                    _showResult.value = GameResult(
+                        optionComment = if (option == Option.A) uiState.optionA else uiState.optionB,
+                        lesson = turnResult.lesson,
+                    )
+                }
 
-            if (turnResult is TurnResult.GameOver) {
-                val uiState = uiState.value as SelectableOptions
-                _showResult.value = GameResult(
-                    optionComment = if (option == Option.A) uiState.optionA else uiState.optionB,
-                    lesson = turnResult.lesson,
-                )
-            } else if (turnResult is TurnResult.SelectableOptions) {
-                _uiState.value = SelectableOptions(
-                    remainingTurns = turnResult.remainingTurns,
-                    question = turnResult.question,
-                    optionA = turnResult.optionA,
-                    optionB = turnResult.optionB,
-                )
+                is TurnResult.SelectableOptions -> {
+                    _uiState.value = SelectableOptions.fromTurnResult(turnResult)
+                }
             }
         }
     }
