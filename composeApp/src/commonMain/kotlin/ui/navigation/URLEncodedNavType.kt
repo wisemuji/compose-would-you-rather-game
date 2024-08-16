@@ -21,10 +21,17 @@ import androidx.navigation.NavType
 import com.eygraber.uri.UriCodec
 import kotlin.reflect.typeOf
 
+/**
+ * Note: URL encoding for Kotlin Multiplatform is not provided by default.
+ * This is a workaround for sending emoji characters in URL. (Navigation Compose)
+ *
+ * By using external library [uri-kmp](https://github.com/eygraber/uri-kmp),
+ * "%" character is not escaped by default, so we need to escape it manually.
+ */
 class URLEncodedNavType : NavType<String>(isNullableAllowed = false) {
 
     override fun serializeAsValue(value: String): String {
-        return UriCodec.encode(value)
+        return UriCodec.encode(value.escapePercent())
     }
 
     override fun get(bundle: Bundle, key: String): String? {
@@ -34,11 +41,16 @@ class URLEncodedNavType : NavType<String>(isNullableAllowed = false) {
 
     override fun parseValue(value: String): String {
         return UriCodec.decode(value)
+            .unescapePercent()
     }
 
     override fun put(bundle: Bundle, key: String, value: String) {
         bundle.putString(key, serializeAsValue(value))
     }
+
+    private fun String.escapePercent(): String = replace("%", "%25")
+
+    private fun String.unescapePercent(): String = replace("%25", "%")
 
     companion object {
         val TYPE_MAP = mapOf(typeOf<String>() to URLEncodedNavType())
