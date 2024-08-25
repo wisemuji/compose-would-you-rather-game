@@ -76,7 +76,7 @@ internal fun ResultScreen(
     viewModel: ResultViewModel = koinViewModel { parametersOf(gameResult) },
 ) {
     val uiState: GameResultUiState by viewModel.uiState.collectAsState()
-    val restart: Boolean by viewModel.restart.collectAsState()
+    val restart: Boolean by viewModel.shouldRestart.collectAsState()
 
     LaunchedEffect(restart) {
         if (restart) {

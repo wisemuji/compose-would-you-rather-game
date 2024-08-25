@@ -33,10 +33,10 @@ class ResultViewModel(
         MutableStateFlow(GameResultUiState(gameResult))
     val uiState: StateFlow<GameResultUiState> = _uiState
 
-    private val _restart: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    val restart: StateFlow<Boolean> = _restart
+    private val _shouldRestart: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val shouldRestart: StateFlow<Boolean> = _shouldRestart
 
     fun restart() {
-        _restart.value = true
+        _shouldRestart.value = true
     }
 }
