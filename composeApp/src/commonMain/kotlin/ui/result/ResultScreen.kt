@@ -86,8 +86,8 @@ internal fun ResultScreen(
 
     ResultScreen(
         uiState = uiState,
-        onRestartClick = { viewModel.restart() },
-        modifier = modifier
+        onRestartClick = viewModel::restart,
+        modifier = modifier,
     )
 }
 

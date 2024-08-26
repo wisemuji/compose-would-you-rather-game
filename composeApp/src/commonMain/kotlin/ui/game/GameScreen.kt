@@ -93,8 +93,8 @@ internal fun GameScreen(
         is GameUiState.SelectableOptions -> {
             GameScreen(
                 uiState = uiState,
-                onOptionSelected = { viewModel.selectOption(it) },
-                modifier = modifier
+                onOptionSelected = viewModel::selectOption,
+                modifier = modifier,
             )
         }
     }
