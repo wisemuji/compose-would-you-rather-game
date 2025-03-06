@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
-import androidx.compose.ui.window.Window
-import androidx.compose.ui.window.application
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.WindowState
+import androidx.compose.ui.window.singleWindowApplication
+import org.jetbrains.compose.reload.DevelopmentEntryPoint
 import ui.App
 
-fun main() = application {
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "compose-would-you-rather-game",
+fun main() {
+    singleWindowApplication(
+        title = "Would You Rather...",
+        state = WindowState(width = 480.dp, height = 640.dp),
     ) {
-        App()
+        DevelopmentEntryPoint {
+            App()
+        }
     }
 }
