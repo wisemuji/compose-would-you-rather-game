@@ -72,7 +72,7 @@ And build to run the project.
 
 ### Compose Hot Reload
 
-[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) `v1.0.0-alpha01` is applied to Desktop build. 
+[Compose Hot Reload](https://github.com/JetBrains/compose-hot-reload) `v1.0.0-alpha03` is applied to Desktop build. 
 > Make changes to your UI code in a Compose Multiplatform application, and see the results in real time. No restarts required.
 
 <img width="60%" alt="image" src="https://github.com/user-attachments/assets/1ffc99fe-51a2-46c2-94ea-54c5d38996ea" />
